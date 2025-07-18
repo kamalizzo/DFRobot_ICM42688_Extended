@@ -905,7 +905,7 @@ public:
    * @brief Get time stamp value of each measurement
    * @return time value, unit: idk
    */
-  long getTimeStamp(void);
+  int32_t getTimeStamp(void);
 
   /**
    * @fn getAccelDataX

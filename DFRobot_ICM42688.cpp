@@ -56,9 +56,9 @@ float DFRobot_ICM42688::getTemperature(void)
   }
   return value;
 }
-long DFRobot_ICM42688::getTimeStamp(void)
+int32_t DFRobot_ICM42688::getTimeStamp(void)
 {
-  long value;
+  int32_t value;
   if(FIFOMode){
     value = _timeStamp;
   } else {
