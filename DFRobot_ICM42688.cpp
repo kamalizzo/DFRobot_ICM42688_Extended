@@ -369,7 +369,7 @@ void DFRobot_ICM42688::setFIFODataMode()
   FIFOConfig1.FIFOAccelEn = 1;
   FIFOConfig1.FIFOGyroEn = 1;
   FIFOConfig1.FIFOTempEn = 1;
-  FIFOConfig1.FIFOTmstFsyncEn = 0;
+  FIFOConfig1.FIFOTmstFsyncEn = 1;
   writeReg(ICM42688_FIFO_CONFIG1,&FIFOConfig1,1);
 
 }
