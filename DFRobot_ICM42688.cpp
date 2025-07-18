@@ -10,6 +10,8 @@
  */
 #include <DFRobot_ICM42688.h>
 #include<Math.h>
+
+#define LTC4332_USED
 DFRobot_ICM42688::DFRobot_ICM42688()
 {
   accelConfig0.accelODR = 6;
@@ -815,6 +817,10 @@ uint8_t DFRobot_ICM42688_SPI::readReg(uint8_t reg, void* pBuf, size_t size)
   _pSpi->beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
   digitalWrite(_csPin,0);
   _pSpi->transfer(reg | 0x80);
+#ifdef LTC4332_USED
+  _pSpi->transfer(0x00);
+#endif
+
   while(size--) {
     *_pBuf = SPI.transfer(0x00);
     _pBuf++;
