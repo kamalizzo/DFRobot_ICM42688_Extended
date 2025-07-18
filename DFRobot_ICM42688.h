@@ -900,6 +900,13 @@ public:
    */
   float getTemperature(void);
 
+   /**
+   * @fn getTimeStamp
+   * @brief Get time stamp value of each measurement
+   * @return time value, unit: idk
+   */
+  float getTimeStamp(void);
+
   /**
    * @fn getAccelDataX
    * @brief Get X-axis accelerometer value
@@ -1238,6 +1245,8 @@ private:
   int16_t _gyroZ;
   int16_t _gyroY;
   int8_t _temp;
+  int16_t _timeStamp;
+
   int8_t _INTPin;
 
   sAccelConfig0_t accelConfig0;

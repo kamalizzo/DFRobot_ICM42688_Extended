@@ -56,6 +56,16 @@ float DFRobot_ICM42688::getTemperature(void)
   }
   return value;
 }
+float DFRobot_ICM42688::getTimeStamp(void)
+{
+  float value;
+  if(FIFOMode){
+    value = _timeStamp;
+  } else {
+    return 0;
+  }
+  return value;
+}
 
 float DFRobot_ICM42688::getAccelDataX(void)
 {
@@ -391,6 +401,9 @@ void DFRobot_ICM42688::getFIFOData()
   _gyroZ = (uint16_t)data[11]<<8 | (uint16_t)data[12];
   //DBG("_gyroZ");DBG(_gyroZ);
   _temp = (uint8_t)data[13];
+
+  _timeStamp = (uint16_t)data[14]<<8 | (uint16_t)data[15];
+
   //DBG("_temp");DBG(data[13]);
 }
 void DFRobot_ICM42688::sotpFIFOMode()
@@ -796,7 +809,7 @@ void DFRobot_ICM42688_SPI::writeReg(uint8_t reg, void* pBuf, size_t size)
   }
   delay(1);
   uint8_t * _pBuf = (uint8_t *)pBuf;
-  _pSpi->beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
+  _pSpi->beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
   digitalWrite(_csPin,0);
   _pSpi->transfer(reg);
   while(size--) {
@@ -814,7 +827,7 @@ uint8_t DFRobot_ICM42688_SPI::readReg(uint8_t reg, void* pBuf, size_t size)
   }
   uint8_t * _pBuf = (uint8_t *)pBuf;
   size_t count = 0;
-  _pSpi->beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
+  _pSpi->beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
   digitalWrite(_csPin,0);
   _pSpi->transfer(reg | 0x80);
 #ifdef LTC4332_USED
